@@ -3,10 +3,16 @@
 ## LAB 26 
 
 ### Home Page
-![IMAGE1](/images/page1.png)
+![IMAGE1](/images/01.png)
 
-### Add Task 
-![IMAGE2](/images/page2.png)
+### Task 1 
+![IMAGE2](/images/02.png)
 
-### All Task
-![IMAGE3](/images/page3.png)
+### Task 2
+![IMAGE3](/images/03.png)
+### Task 3
+![IMAGE3](/images/04.png)
+
+### Settings
+![IMAGE3](/images/05.png)
+
