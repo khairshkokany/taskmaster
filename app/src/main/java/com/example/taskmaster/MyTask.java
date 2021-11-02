@@ -5,9 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MyTask extends AppCompatActivity {
 
@@ -36,37 +40,37 @@ public class MyTask extends AppCompatActivity {
                 }
             });
 
-        Button button2 = findViewById(R.id.task1);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyTask.this , TaskDetailsPage.class);
-                String task1 = "This Is Task 1 Nothing Is Here Go To Task 2 Please .! ";
-                intent.putExtra("task" , task1);
-                startActivity(intent);
-            }
-        });
-
-        Button button3 = findViewById(R.id.task2);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyTask.this , TaskDetailsPage.class);
-                String task2 = "Umm Can You Go Out Please I'm So Busy Ty :) ";
-                intent.putExtra("task" , task2);
-                startActivity(intent);
-            }
-        });
-            Button button4 = findViewById(R.id.task3);
-            button4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent4 = new Intent(MyTask.this , TaskDetailsPage.class);
-                    String task3 = "Umm After You Finshed From Task 1 and 2 You Come To Me ? , Please Get Out And Don't let Me See U Again :)";
-                    intent4.putExtra("task" , task3);
-                    startActivity(intent4);
-                }
-            });
+//        Button button2 = findViewById(R.id.task1);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MyTask.this , TaskDetailsPage.class);
+//                String task1 = "This Is Task 1 Nothing Is Here Go To Task 2 Please .! ";
+//                intent.putExtra("task" , task1);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        Button button3 = findViewById(R.id.task2);
+//        button3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MyTask.this , TaskDetailsPage.class);
+//                String task2 = "Umm Can You Go Out Please I'm So Busy Ty :) ";
+//                intent.putExtra("task" , task2);
+//                startActivity(intent);
+//            }
+//        });
+//            Button button4 = findViewById(R.id.task3);
+//            button4.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent4 = new Intent(MyTask.this , TaskDetailsPage.class);
+//                    String task3 = "Umm After You Finshed From Task 1 and 2 You Come To Me ? , Please Get Out And Don't let Me See U Again :)";
+//                    intent4.putExtra("task" , task3);
+//                    startActivity(intent4);
+//                }
+//            });
             Button button5 = findViewById(R.id.Settings);
             button5.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,6 +80,22 @@ public class MyTask extends AppCompatActivity {
                 }
             });
 
+        ArrayList<Details> detailsArrayList = new ArrayList<Details>();
+
+        detailsArrayList.add(new Details("New Data " , "Welcome To Our Application" , "NEW"));
+        detailsArrayList.add(new Details("Error1" , "Please Make Sure You Put a Correct Data Ty :) " , "Assigned"));
+        detailsArrayList.add(new Details("Test" , "Please Waiting We Are Checking If You Have A Error Or Not !" , "in Progress "));
+        detailsArrayList.add(new Details("Information" , "Nice Everything Is Good You Can Discover Our Application Thank You For Choosing Us " , "Complete"));
+
+        // here I Will Take The Recycler View
+        RecyclerView taskRec = findViewById(R.id.recyclerViewMain);
+
+        // here we will set the layout manger
+
+        taskRec.setLayoutManager(new LinearLayoutManager(this));
+
+        // here we will set the  adapter for this recycler view
+        taskRec.setAdapter(new DetailsAdapter(detailsArrayList));
 
     }
 
