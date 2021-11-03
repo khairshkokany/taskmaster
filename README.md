@@ -1,13 +1,12 @@
 # taskmaster
 
-## LAB 26 
+## LAB 29 
 
 ### Home Page
-![IMAGE1](/images/image1.png)
+![IMAGE1](/images/01.png)
 
-### Home Page
-![IMAGE2](/images/image2.png)
+### Add Task
+![IMAGE2](/images/02.png)
 
-### Task Details
-![IMAGE3](/images/image3.png)
+
 
