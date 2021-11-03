@@ -11,7 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.room.Room;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyTask extends AppCompatActivity {
 
@@ -87,15 +90,15 @@ public class MyTask extends AppCompatActivity {
         detailsArrayList.add(new Details("Test" , "Please Waiting We Are Checking If You Have A Error Or Not !" , "in Progress "));
         detailsArrayList.add(new Details("Information" , "Nice Everything Is Good You Can Discover Our Application Thank You For Choosing Us " , "Complete"));
 
-        // here I Will Take The Recycler View
-        RecyclerView taskRec = findViewById(R.id.recyclerViewMain);
-
-        // here we will set the layout manger
-
-        taskRec.setLayoutManager(new LinearLayoutManager(this));
-
-        // here we will set the  adapter for this recycler view
-        taskRec.setAdapter(new DetailsAdapter(detailsArrayList));
+//        // here I Will Take The Recycler View
+//        RecyclerView taskRec = findViewById(R.id.recyclerViewMain);
+//
+//        // here we will set the layout manger
+//
+//        taskRec.setLayoutManager(new LinearLayoutManager(this));
+//
+//        // here we will set the  adapter for this recycler view
+//        taskRec.setAdapter(new DetailsAdapter(detailsArrayList));
 
     }
 
@@ -108,6 +111,22 @@ public class MyTask extends AppCompatActivity {
 
         TextView user = findViewById(R.id.username);
         user.setText("Welcome "  +  username);
+
+
+        // this is to get the database and render it in my task with recyclerView
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "database-name").allowMainThreadQueries().build();
+        TaskDao taskDao = db.taskDao();
+        List<Details> detailsList = taskDao.getAll();
+
+        RecyclerView taskRec = findViewById(R.id.recyclerViewMain);
+
+        // here we will set the layout manger
+
+        taskRec.setLayoutManager(new LinearLayoutManager(this));
+
+        // here we will set the  adapter for this recycler view
+        taskRec.setAdapter(new DetailsAdapter(detailsList));
 
 
 
