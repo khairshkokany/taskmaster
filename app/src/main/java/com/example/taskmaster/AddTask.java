@@ -54,10 +54,7 @@ public class AddTask extends AppCompatActivity {
 
                 Details details = new Details(setTitle , setBody , setState);
                 taskDao.insertAll(details);
-
-
-
-
+                
                 textView.setText("Total Tasks :"+ counter++);
                 Toast toast = Toast.makeText(getApplicationContext() , "Osh You Hit Me !! , You Will Get Error If You Hit Me Again  Cya :) " , Toast.LENGTH_SHORT);
                 toast.show();
