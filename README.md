@@ -1,9 +1,8 @@
 # taskmaster
 
-## LAB 29 
+## LAB 32 
 
-### TEST TASK
-![IMAGE1](/images/code31.png)
+### ADDING THE DATABASE IN AWS
 
 
 
