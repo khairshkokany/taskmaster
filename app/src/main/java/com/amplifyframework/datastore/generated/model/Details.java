@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
 
@@ -19,29 +18,36 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the Details type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Details")
+@Index(name = "byTeam", fields = {"teamID","title","body","state"})
 public final class Details implements Model {
   public static final QueryField ID = field("Details", "id");
+  public static final QueryField TEAM_ID = field("Details", "teamID");
   public static final QueryField TITLE = field("Details", "title");
   public static final QueryField BODY = field("Details", "body");
   public static final QueryField STATE = field("Details", "state");
   private final @ModelField(targetType="ID", isRequired = true) String id;
+  private final @ModelField(targetType="ID", isRequired = true) String teamID;
   private final @ModelField(targetType="String", isRequired = true) String title;
-  private final @ModelField(targetType="String") String body;
-  private final @ModelField(targetType="String") String state;
+  private final @ModelField(targetType="String", isRequired = true) String body;
+  private final @ModelField(targetType="String", isRequired = true) String state;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
   }
   
+  public String getTeamId() {
+      return teamID;
+  }
+  
   public String getTitle() {
       return title;
   }
-  
+
   public String getBody() {
       return body;
   }
-  
+
   public String getState() {
       return state;
   }
@@ -54,8 +60,9 @@ public final class Details implements Model {
       return updatedAt;
   }
   
-  private Details(String id, String title, String body, String state) {
+  private Details(String id, String teamID, String title, String body, String state) {
     this.id = id;
+    this.teamID = teamID;
     this.title = title;
     this.body = body;
     this.state = state;
@@ -70,6 +77,7 @@ public final class Details implements Model {
       } else {
       Details details = (Details) obj;
       return ObjectsCompat.equals(getId(), details.getId()) &&
+              ObjectsCompat.equals(getTeamId(), details.getTeamId()) &&
               ObjectsCompat.equals(getTitle(), details.getTitle()) &&
               ObjectsCompat.equals(getBody(), details.getBody()) &&
               ObjectsCompat.equals(getState(), details.getState()) &&
@@ -82,6 +90,7 @@ public final class Details implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
+      .append(getTeamId())
       .append(getTitle())
       .append(getBody())
       .append(getState())
@@ -96,6 +105,7 @@ public final class Details implements Model {
     return new StringBuilder()
       .append("Details {")
       .append("id=" + String.valueOf(getId()) + ", ")
+      .append("teamID=" + String.valueOf(getTeamId()) + ", ")
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("body=" + String.valueOf(getBody()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
@@ -105,7 +115,7 @@ public final class Details implements Model {
       .toString();
   }
   
-  public static TitleStep builder() {
+  public static TeamIdStep builder() {
       return new Builder();
   }
   
@@ -122,31 +132,47 @@ public final class Details implements Model {
       id,
       null,
       null,
+      null,
       null
     );
   }
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
+      teamID,
       title,
       body,
       state);
   }
+  public interface TeamIdStep {
+    TitleStep teamId(String teamId);
+  }
+  
+
   public interface TitleStep {
-    BuildStep title(String title);
+    BodyStep title(String title);
+  }
+  
+
+  public interface BodyStep {
+    StateStep body(String body);
+  }
+  
+
+  public interface StateStep {
+    BuildStep state(String state);
   }
   
 
   public interface BuildStep {
     Details build();
     BuildStep id(String id);
-    BuildStep body(String body);
-    BuildStep state(String state);
   }
   
 
-  public static class Builder implements TitleStep, BuildStep {
+  public static class Builder implements TeamIdStep, TitleStep, BodyStep, StateStep, BuildStep {
     private String id;
+    private String teamID;
     private String title;
     private String body;
     private String state;
@@ -156,26 +182,36 @@ public final class Details implements Model {
         
         return new Details(
           id,
+          teamID,
           title,
           body,
           state);
     }
     
     @Override
-     public BuildStep title(String title) {
+     public TitleStep teamId(String teamId) {
+        Objects.requireNonNull(teamId);
+        this.teamID = teamId;
+        return this;
+    }
+    
+    @Override
+     public BodyStep title(String title) {
         Objects.requireNonNull(title);
         this.title = title;
         return this;
     }
     
     @Override
-     public BuildStep body(String body) {
+     public StateStep body(String body) {
+        Objects.requireNonNull(body);
         this.body = body;
         return this;
     }
     
     @Override
      public BuildStep state(String state) {
+        Objects.requireNonNull(state);
         this.state = state;
         return this;
     }
@@ -192,11 +228,17 @@ public final class Details implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, String state) {
+    private CopyOfBuilder(String id, String teamId, String title, String body, String state) {
       super.id(id);
-      super.title(title)
+      super.teamId(teamId)
+        .title(title)
         .body(body)
         .state(state);
+    }
+    
+    @Override
+     public CopyOfBuilder teamId(String teamId) {
+      return (CopyOfBuilder) super.teamId(teamId);
     }
     
     @Override

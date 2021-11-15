@@ -1,6 +1,13 @@
-type Details @model {
-  id: ID!
-  title: String!
-  body: String
-  state: String
+type Team @model {
+    id: ID!
+    title: String!
+    details: [Details] @connection(keyName: "byTeam", fields: ["id"])
+}
+type Details @model
+@key(name: "byTeam", fields: ["teamID", "title" , "body" , "state"]) {
+    id: ID!
+    teamID: ID!
+    title: String!
+    body: String!
+    state: String!
 }
