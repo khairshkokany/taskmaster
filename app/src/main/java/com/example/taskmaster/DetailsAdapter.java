@@ -1,8 +1,10 @@
 package com.example.taskmaster;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +13,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Details;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder> {
 
-     List<Details> detailsList = new ArrayList<>();
+    private static final String TAG = "HELLO FROM ADAPTER";
+    List<com.amplifyframework.datastore.generated.model.Details> detailsList = new ArrayList<>();
 
-    public DetailsAdapter(List<Details> detailsList) {
+    public DetailsAdapter(List<Details> detailsList, Context context) {
         this.detailsList = detailsList;
     }
 
@@ -47,10 +52,13 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsV
         TextView title = detailsViewHolder.itemView.findViewById(R.id.titleDetails);
         TextView body = detailsViewHolder.itemView.findViewById(R.id.bodyDetails);
         TextView states = detailsViewHolder.itemView.findViewById(R.id.statesDetails);
+        TextView team = detailsViewHolder.itemView.findViewById(R.id.teamsName);
 
-        title.setText(detailsViewHolder.details.title);
-        body.setText(detailsViewHolder.details.body);
-        states.setText(detailsViewHolder.details.state);
+        title.setText(detailsViewHolder.details.getTitle());
+        body.setText(detailsViewHolder.details.getBody());
+        states.setText(detailsViewHolder.details.getState());
+        team.setText(detailsViewHolder.details.getTeamId());
+        Log.i(TAG, "onBindViewHolder: THIS IS TEADId" + detailsViewHolder.details.getTeamId());
 
 
         detailsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +69,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsV
                 intent.putExtra("title", detailsList.get(i).getTitle());
                 intent.putExtra("body", detailsList.get(i).getBody());
                 intent.putExtra("state", detailsList.get(i).getState());
+                intent.putExtra("team", detailsList.get(i).getTeamId());
                 view.getContext().startActivity(intent);
 
             }
